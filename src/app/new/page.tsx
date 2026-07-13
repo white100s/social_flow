@@ -1,4 +1,6 @@
 import { createPost } from "./actions";
+import { getLocale } from "@/lib/i18n/locale";
+import { getDictionary } from "@/lib/i18n/dictionaries";
 
 export default async function NewPostPage({
   searchParams,
@@ -6,13 +8,14 @@ export default async function NewPostPage({
   searchParams: Promise<{ error?: string }>;
 }) {
   const { error } = await searchParams;
+  const t = getDictionary(await getLocale()).newPost;
 
   return (
     <div className="mx-auto max-w-xl px-4 py-8">
-      <h1 className="mb-6 text-xl font-bold">새 글 작성</h1>
+      <h1 className="mb-6 text-xl font-bold">{t.title}</h1>
 
       {error && (
-        <p className="mb-4 rounded-lg bg-red-950 px-3 py-2 text-sm text-red-400">
+        <p className="mb-4 rounded-lg bg-danger-bg px-3 py-2 text-sm text-danger-fg">
           {error}
         </p>
       )}
@@ -23,14 +26,14 @@ export default async function NewPostPage({
           required
           maxLength={500}
           rows={6}
-          placeholder="무슨 일이 있었나요?"
-          className="resize-none rounded-xl border border-neutral-800 bg-neutral-900 px-4 py-3 text-sm outline-none focus:border-neutral-500"
+          placeholder={t.placeholder}
+          className="resize-none rounded-xl border border-border bg-surface px-4 py-3 text-base outline-none focus:border-muted"
         />
         <button
           type="submit"
-          className="ml-auto rounded-full bg-white px-5 py-2 text-sm font-semibold text-black transition hover:bg-neutral-200"
+          className="ml-auto min-h-12 rounded-full bg-foreground px-5 py-2 text-sm font-semibold text-background transition hover:opacity-90"
         >
-          게시
+          {t.submit}
         </button>
       </form>
     </div>

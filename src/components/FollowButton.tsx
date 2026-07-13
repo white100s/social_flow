@@ -4,10 +4,12 @@ export default function FollowButton({
   targetUserId,
   username,
   following,
+  labels,
 }: {
   targetUserId: string;
   username: string;
   following: boolean;
+  labels: { follow: string; following: string };
 }) {
   const action = toggleFollow.bind(null, targetUserId, username);
 
@@ -15,13 +17,13 @@ export default function FollowButton({
     <form action={action}>
       <button
         type="submit"
-        className={`rounded-full px-4 py-1.5 text-sm font-semibold transition ${
+        className={`min-h-11 rounded-full px-4 text-sm font-semibold transition ${
           following
-            ? "border border-neutral-700 text-white hover:bg-neutral-900"
-            : "bg-white text-black hover:bg-neutral-200"
+            ? "border border-border text-foreground hover:bg-surface"
+            : "bg-foreground text-background hover:opacity-90"
         }`}
       >
-        {following ? "팔로잉" : "팔로우"}
+        {following ? labels.following : labels.follow}
       </button>
     </form>
   );

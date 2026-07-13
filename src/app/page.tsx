@@ -1,8 +1,12 @@
 import { createClient } from "@/lib/supabase/server";
 import PostCard, { type PostCardData } from "@/components/PostCard";
+import { getLocale } from "@/lib/i18n/locale";
+import { getDictionary } from "@/lib/i18n/dictionaries";
 
 export default async function FeedPage() {
   const supabase = await createClient();
+  const locale = await getLocale();
+  const t = getDictionary(locale).feed;
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -41,19 +45,17 @@ export default async function FeedPage() {
   return (
     <div className="mx-auto max-w-xl">
       {error && (
-        <p className="px-4 py-6 text-sm text-red-400">
-          피드를 불러오지 못했어요: {error.message}
+        <p className="px-4 py-6 text-sm text-danger-fg">
+          {t.loadError}: {error.message}
         </p>
       )}
 
       {!error && items.length === 0 && (
-        <p className="px-4 py-10 text-center text-sm text-neutral-500">
-          아직 게시물이 없어요. 첫 글을 남겨보세요!
-        </p>
+        <p className="px-4 py-10 text-center text-sm text-muted">{t.empty}</p>
       )}
 
       {items.map((post) => (
-        <PostCard key={post.id} post={post} canLike={!!user} />
+        <PostCard key={post.id} post={post} canLike={!!user} locale={locale} />
       ))}
     </div>
   );

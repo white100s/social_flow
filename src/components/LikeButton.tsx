@@ -19,11 +19,11 @@ export default function LikeButton({
         type="submit"
         disabled={disabled}
         aria-pressed={liked}
-        className={`flex items-center gap-1.5 text-sm transition ${
-          liked ? "text-red-500" : "text-neutral-400 hover:text-neutral-200"
+        className={`-ml-2 flex min-h-11 items-center gap-1.5 rounded-full px-2 text-sm transition ${
+          liked ? "text-red-500" : "text-muted hover:text-foreground"
         } ${disabled ? "cursor-not-allowed opacity-60" : ""}`}
       >
-        <span>{liked ? "♥" : "♡"}</span>
+        <span className="text-lg leading-none">{liked ? "♥" : "♡"}</span>
         <span>{count}</span>
       </button>
     </form>

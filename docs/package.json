@@ -1,0 +1,13 @@
+{
+  "name": "social-flow-docs",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build:ppt": "node build-orientation-deck.js",
+    "build:qr": "node generate-repo-qr.js"
+  },
+  "dependencies": {
+    "pptxgenjs": "^3.12.0",
+    "qrcode": "^1.5.4"
+  }
+}

@@ -2,25 +2,56 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #17181a;
+  --surface: #f5f5f6;
+  --border: #e4e4e6;
+  --muted: #6b6b70;
+  --danger-bg: #fdeaea;
+  --danger-fg: #b3261e;
+}
+
+:root[data-theme="dark"] {
+  /* Soft charcoal instead of pure black to keep contrast comfortable. */
+  --background: #17181a;
+  --foreground: #f2f2f0;
+  --surface: #202124;
+  --border: #313236;
+  --muted: #98999d;
+  --danger-bg: #3a2020;
+  --danger-fg: #f3a3a3;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-danger-bg: var(--danger-bg);
+  --color-danger-fg: var(--danger-fg);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+  min-height: 100dvh;
+}
+
+/* Prevent iOS Safari from auto-zooming when a form field is focused. */
+input,
+textarea {
+  font-size: 16px;
+}
+
+button {
+  touch-action: manipulation;
 }

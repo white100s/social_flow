@@ -3,12 +3,15 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { getLocale } from "@/lib/i18n/locale";
+import { getDictionary } from "@/lib/i18n/dictionaries";
 
 export async function createPost(formData: FormData) {
   const content = String(formData.get("content") ?? "").trim();
 
   if (!content || content.length > 500) {
-    redirect(`/new?error=${encodeURIComponent("1~500자로 작성해주세요")}`);
+    const t = getDictionary(await getLocale()).newPost;
+    redirect(`/new?error=${encodeURIComponent(t.lengthError)}`);
   }
 
   const supabase = await createClient();

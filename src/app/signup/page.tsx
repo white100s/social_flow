@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { signup } from "./actions";
+import { getLocale } from "@/lib/i18n/locale";
+import { getDictionary } from "@/lib/i18n/dictionaries";
 
 export default async function SignupPage({
   searchParams,
@@ -7,54 +9,47 @@ export default async function SignupPage({
   searchParams: Promise<{ error?: string }>;
 }) {
   const { error } = await searchParams;
+  const t = getDictionary(await getLocale()).signup;
 
   return (
-    <div className="flex min-h-dvh items-center justify-center px-4">
+    <div className="flex min-h-dvh items-center justify-center px-4 py-10">
       <div className="w-full max-w-sm">
-        <h1 className="mb-8 text-center text-2xl font-bold">계정 만들기</h1>
+        <h1 className="mb-8 text-center text-2xl font-bold">{t.title}</h1>
 
         {error && (
-          <p className="mb-4 rounded-lg bg-red-950 px-3 py-2 text-sm text-red-400">
+          <p className="mb-4 rounded-lg bg-danger-bg px-3 py-2 text-sm text-danger-fg">
             {error}
           </p>
         )}
 
         <form action={signup} className="flex flex-col gap-3">
           <input
-            type="text"
-            name="username"
-            placeholder="아이디 (영문 소문자, 숫자, _)"
-            required
-            pattern="[a-z0-9_]{3,20}"
-            className="rounded-xl border border-neutral-800 bg-neutral-900 px-4 py-3 text-sm outline-none focus:border-neutral-500"
-          />
-          <input
             type="email"
             name="email"
-            placeholder="이메일"
+            placeholder={t.email}
             required
-            className="rounded-xl border border-neutral-800 bg-neutral-900 px-4 py-3 text-sm outline-none focus:border-neutral-500"
+            className="min-h-12 rounded-xl border border-border bg-surface px-4 py-3 text-base outline-none focus:border-muted"
           />
           <input
             type="password"
             name="password"
-            placeholder="비밀번호 (6자 이상)"
+            placeholder={t.password}
             required
             minLength={6}
-            className="rounded-xl border border-neutral-800 bg-neutral-900 px-4 py-3 text-sm outline-none focus:border-neutral-500"
+            className="min-h-12 rounded-xl border border-border bg-surface px-4 py-3 text-base outline-none focus:border-muted"
           />
           <button
             type="submit"
-            className="mt-2 rounded-xl bg-white px-4 py-3 text-sm font-semibold text-black transition hover:bg-neutral-200"
+            className="mt-2 min-h-12 rounded-xl bg-foreground px-4 py-3 text-sm font-semibold text-background transition hover:opacity-90"
           >
-            가입하기
+            {t.submit}
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-neutral-400">
-          이미 계정이 있으신가요?{" "}
-          <Link href="/login" className="font-semibold text-white">
-            로그인
+        <p className="mt-6 text-center text-sm text-muted">
+          {t.haveAccount}{" "}
+          <Link href="/login" className="font-semibold text-foreground">
+            {t.loginLink}
           </Link>
         </p>
       </div>

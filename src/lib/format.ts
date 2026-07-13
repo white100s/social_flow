@@ -1,18 +1,22 @@
-export function timeAgo(dateString: string) {
+import type { Locale } from "@/lib/i18n/dictionaries";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+
+export function timeAgo(locale: Locale, dateString: string) {
+  const t = getDictionary(locale).time;
   const seconds = Math.floor((Date.now() - new Date(dateString).getTime()) / 1000);
 
   const units: [string, number][] = [
-    ["년", 31536000],
-    ["개월", 2592000],
-    ["일", 86400],
-    ["시간", 3600],
-    ["분", 60],
+    [t.year, 31536000],
+    [t.month, 2592000],
+    [t.day, 86400],
+    [t.hour, 3600],
+    [t.minute, 60],
   ];
 
   for (const [label, secondsInUnit] of units) {
     const value = Math.floor(seconds / secondsInUnit);
-    if (value >= 1) return `${value}${label} 전`;
+    if (value >= 1) return `${value}${label}`;
   }
 
-  return "방금 전";
+  return t.justNow;
 }
