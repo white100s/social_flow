@@ -316,6 +316,47 @@ function codeBlock(slide, lines, opts = {}) {
 }
 
 // ---------------------------------------------------------------------------
+// Setup — Claude 계정 만들기 + Claude Code 설치 (맨 앞에 배치: 이후 모든 실습이
+// Claude Code가 설치되어 있다는 전제로 진행되기 때문)
+// ---------------------------------------------------------------------------
+
+// Claude 계정 만들기
+{
+  const slide = baseSlide();
+  titleBar(slide, "가장 먼저: Claude 계정 만들기", "Claude Code를 쓰려면 계정이 필요해요");
+  bullets(slide, [
+    "Claude = Anthropic에서 만든 AI 모델/서비스. Claude Code = 그 Claude를 터미널 안에서 쓸 수 있게 해주는 도구",
+    "https://claude.ai 에서 이메일로 무료 가입 가능",
+    "가입한 계정으로 Claude Code를 실행하면 브라우저 로그인 창이 뜨고, 로그인하면 바로 사용 가능",
+    "회사/팀에서 API 키나 Anthropic Console 계정을 따로 준다면 그걸로 로그인해도 됨",
+  ]);
+}
+
+// Claude Code 설치하기
+{
+  const slide = baseSlide();
+  titleBar(slide, "Claude Code 설치하기", "터미널(Terminal / PowerShell)에서 한 번만 하면 끝");
+  codeBlock(slide, [
+    "# 준비물: Node.js 18 이상 (https://nodejs.org 에서 설치)",
+    "node -v",
+    "",
+    "# 설치 (macOS / Windows / Linux 공통)",
+    "npm install -g @anthropic-ai/claude-code",
+    "",
+    "# macOS / Linux는 아래 방법으로도 설치 가능",
+    "curl -fsSL https://claude.ai/install.sh | bash",
+    "",
+    "# 설치 확인",
+    "claude --version",
+    "",
+    "# 실행 (프로젝트 폴더 안에서)",
+    "cd 내-프로젝트-폴더",
+    "claude",
+    "  → 처음 실행하면 브라우저가 열리고 Claude 계정으로 로그인하라고 안내함",
+  ]);
+}
+
+// ---------------------------------------------------------------------------
 // Curriculum roadmap — where this orientation sits in the full course
 // ---------------------------------------------------------------------------
 const CURRICULUM = [
@@ -673,6 +714,70 @@ GLOSSARY.forEach(({ term, def, analogy, link }) => {
     "신고/문의 처리 흐름을 관리자 앱에 추가",
     "Flutter macOS/iOS는 Xcode 전체 설치 후 빌드 검증 필요, Windows는 Windows 머신에서만",
   ]);
+}
+
+// ---------------------------------------------------------------------------
+// Appendix — where to go to build up fundamentals from scratch
+// ---------------------------------------------------------------------------
+
+// Appendix divider
+{
+  const slide = baseSlide();
+  slide.addText("별첨", {
+    x: 0.8,
+    y: 2.8,
+    w: 11.7,
+    h: 1.0,
+    fontSize: 40,
+    bold: true,
+    color: COLORS.fg,
+    fontFace: "Arial",
+  });
+  slide.addText("기초 개념을 처음부터 제대로 쌓고 싶다면", {
+    x: 0.8,
+    y: 3.7,
+    w: 11.7,
+    h: 0.6,
+    fontSize: 20,
+    color: COLORS.accent,
+    fontFace: "Arial",
+  });
+}
+
+// Recommended sites
+{
+  const slide = baseSlide();
+  titleBar(slide, "추천 사이트", "무료로 기초부터 다질 수 있는 곳들");
+  bullets(
+    slide,
+    [
+      "MDN Web Docs (developer.mozilla.org) — HTML/CSS/JS, 웹 표준 문서의 정석",
+      "생활코딩 (opentutorials.org) — 한국어로 프로그래밍·Git·DB 기초를 처음부터",
+      "freeCodeCamp (freecodecamp.org) — 무료 커리큘럼 + 실습 위주 웹 개발 기초",
+      "roadmap.sh — 프론트엔드/백엔드/풀스택 등 분야별 학습 로드맵 지도",
+      "Next.js Learn (nextjs.org/learn) — Next.js 공식 인터랙티브 튜토리얼",
+      "Supabase Docs (supabase.com/docs) — Auth/DB/RLS 등 공식 가이드 + 예제",
+      "Flutter 공식 Codelabs (docs.flutter.dev/codelabs) — 손으로 따라 하는 Flutter 튜토리얼",
+    ],
+    { fontSize: 17 },
+  );
+}
+
+// Recommended books
+{
+  const slide = baseSlide();
+  titleBar(slide, "추천 책", "개념을 깊이 있게 잡고 싶을 때");
+  bullets(
+    slide,
+    [
+      "『클린 코드』 Robert C. Martin — 좋은 코드/나쁜 코드를 가르는 기준 세우기",
+      "『모던 자바스크립트 Deep Dive』 이웅모 — 자바스크립트 문법의 원리를 제대로",
+      "『Learning React』 Alex Banks & Eve Porcello (O'Reilly) — 리액트 개념을 기초부터",
+      "『혼자 공부하는 컴퓨터 구조+운영체제』 강민철 — 코드 너머의 컴퓨터 동작 원리",
+      "『Designing Data-Intensive Applications』 Martin Kleppmann — 데이터베이스/백엔드를 깊게 (중급 이상)",
+    ],
+    { fontSize: 18 },
+  );
 }
 
 const outPath = require("path").join(__dirname, "social-flow-orientation.pptx");
