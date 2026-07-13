@@ -477,9 +477,34 @@ const GLOSSARY = [
     link: "https://developer.mozilla.org/en-US/docs/Web/API",
   },
   {
+    term: "라우팅 (Routing)",
+    def: "웹사이트 주소(URL 경로)에 따라 어떤 화면을 보여줄지 정하는 것이에요. 예를 들어 '/login'으로 가면 로그인 화면이, '/profile/철수'로 가면 철수님 프로필 화면이 나오는 식이에요.",
+    link: "https://nextjs.org/docs/app/building-your-application/routing",
+  },
+  {
+    term: "React",
+    def: "메타(페이스북)가 만든 라이브러리로, 화면을 작은 조각(컴포넌트)으로 나눠서 레고처럼 조립할 수 있게 해줘요. Next.js는 이 React 위에 만들어졌어요.",
+    link: "https://react.dev",
+  },
+  {
     term: "Next.js",
-    def: "리액트(React) 기반으로 웹사이트를 쉽게 만들 수 있게 도와주는 프레임워크예요. 이 프로젝트의 웹 앱과 관리자 앱이 Next.js로 만들어졌어요.",
+    def: "React 기반으로 웹사이트를 쉽게 만들 수 있게 도와주는 프레임워크예요. 이 프로젝트의 웹 앱과 관리자 앱이 Next.js로 만들어졌어요.",
     link: "https://nextjs.org",
+  },
+  {
+    term: "서버 컴포넌트 / 클라이언트 컴포넌트",
+    def: "Next.js에서 화면 조각(컴포넌트)을 만드는 두 가지 방식이에요. 서버 컴포넌트는 서버가 미리 완성해서 보내주는 화면(더 빠르고 검색엔진에도 잘 보임), 클라이언트 컴포넌트는 브라우저에서 직접 동작하는 화면(버튼 클릭 같은 상호작용이 필요할 때)이에요.",
+    link: "https://nextjs.org/docs/app/building-your-application/rendering/server-components",
+  },
+  {
+    term: "미들웨어 (Middleware) / 프록시",
+    def: "요청이 실제 화면에 도착하기 전에 한 번 거쳐 가는 중간 단계예요. 로그인했는지 확인하고, 안 됐으면 로그인 페이지로 돌려보내는 것 같은 일을 여기서 해요.",
+    link: "https://nextjs.org/docs/app/building-your-application/routing/middleware",
+  },
+  {
+    term: "포트 (Port)",
+    def: "한 대의 컴퓨터 안에서 여러 서버(프로그램)를 구분하기 위한 번호예요. localhost:3721은 '내 컴퓨터의 3721번 문으로 들어가기'와 같은 뜻이에요.",
+    link: "https://www.cloudflare.com/learning/network-layer/what-is-a-computer-port/",
   },
   {
     term: "Vercel",
@@ -572,14 +597,18 @@ GLOSSARY.forEach(({ term, def, analogy, link }) => {
 // Web app
 {
   const slide = baseSlide();
-  titleBar(slide, "웹 앱 (Next.js 16)", "App Router + Server Actions");
-  bullets(slide, [
-    "라우트 대부분이 Server Component — 서버에서 Supabase를 직접 쿼리",
-    "쓰기 작업(좋아요, 팔로우, 글쓰기, 로그인/가입)은 전부 Server Actions (\"use server\")",
-    "src/proxy.ts (Next 16의 middleware 후속 컨벤션)가 세션 갱신 + /new, /settings 보호",
-    "src/lib/supabase/{client,server}.ts — 브라우저용 / 서버용 Supabase 클라이언트 분리",
-    "포트 3721에서 개발 서버 실행 (pnpm dev)",
-  ]);
+  titleBar(slide, "웹 앱 (Next.js 16)", "화면 대부분은 서버가 미리 완성해서 보내줌");
+  bullets(
+    slide,
+    [
+      "화면 대부분이 '서버 컴포넌트'예요 — 브라우저가 아니라 서버에서 Supabase 데이터를 미리 가져와 완성된 화면으로 보내줘요 (그래서 더 빠르고, 검색엔진에도 잘 보여요)",
+      "좋아요·팔로우·글쓰기·로그인처럼 '뭔가를 바꾸는' 동작은 'Server Action'이라는 방식으로 처리해요 — 버튼을 누르면 서버 쪽 함수가 바로 실행돼요 (API를 따로 안 만들어도 됨)",
+      "모든 요청은 먼저 프록시(proxy, 예전 이름은 middleware)를 한 번 거쳐가요 — 여기서 로그인 상태를 확인하고, 안 됐으면 로그인 페이지로 돌려보내요",
+      "Supabase에 접속하는 코드는 브라우저용/서버용으로 나뉘어 있어요 — 브라우저에서 접속하는 방법과 서버에서 접속하는 방법이 조금 다르기 때문이에요",
+      "로컬에서는 3721번 포트로 개발 서버를 띄워요 — pnpm dev 명령어 한 줄이면 끝",
+    ],
+    { fontSize: 16 },
+  );
 }
 
 // i18n & theme
